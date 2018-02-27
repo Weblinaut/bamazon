@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
-var connection = require('./constructors/connect.js');
+var connection = require('./Connect/connect.js');
 
 
 listOptions();
