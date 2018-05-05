@@ -112,24 +112,30 @@ function readProducts() {
 		for (let i = 0; i < res.length; i++) {
 			let product_id = res[i].product_id.toString();
 			let product_name = res[i].product_name;
-			let department_name = res[i].department_name;
-			let price = "$" + res[i].price;
-			while(product_id.length < 2) {
-				product_id = " " + product_id;
-			}
-			while(product_name.length < 40) {
-				product_name = product_name + " ";
-			}
+			let department_id = res[i].department_id;
+			let department_name = '';
+            let price = "$" + res[i].price;
 
-			while(department_name.length < 16) {
-				department_name = department_name + " ";
-			}
-			while(price.length < 8) {
-				price = " " + price;
-			}
-			console.log("| " + product_id + " | " + product_name + " | " + department_name + " | " + price + " |");
+			connection.query(`SELECT * FROM departments WHERE department_id = ${department_id}`, function(err, res) {
+                department_name = res[0].department_name;
+
+                while(product_id.length < 2) {
+                    product_id = " " + product_id;
+                }
+                while(product_name.length < 40) {
+                    product_name = product_name + " ";
+                }
+
+                while(department_name.length < 16) {
+                    department_name = department_name + " ";
+                }
+                while(price.length < 8) {
+                    price = " " + price;
+                }
+                console.log("| " + product_id + " | " + product_name + " | " + department_name + " | " + price + " |");
+                console.log("+----+------------------------------------------+------------------+----------+");
+			});
 		}
-		console.log("+----+------------------------------------------+------------------+----------+\n");
+        buyItem();
 	});
-	buyItem();
 }
